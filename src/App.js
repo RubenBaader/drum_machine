@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div id='drum-machine'>
+        <div id='pad-container'>
+          <button className='drum-pad'>butt</button>
+          <button className='drum-pad'>butt</button>
+          <button className='drum-pad'>butt</button>
+          <button className='drum-pad'>butt</button>
+          <button className='drum-pad'>butt</button>
+          <button className='drum-pad'>butt</button>
+          <button className='drum-pad'>butt</button>
+          <button className='drum-pad'>butt</button>
+          <button className='drum-pad'>butt</button>
+        </div>
+        <div id='control-panel'>
+          <button id='power-button'>Power</button>
+          <input type='text' id='display'></input>
+          <div className='slider'>
+            <input type='range' id='volume' name='volume' min='0' max='100'></input>
+            <label for='volume'>this is the volume</label>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
