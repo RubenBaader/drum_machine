@@ -14,6 +14,10 @@
   display: flex;
   flex-direction: row;
   gap: 10px;
+
+  background-color: antiquewhite;
+  padding: 1%;
+  border-radius: 5px;
 }
 
 #pad-container {
@@ -26,6 +30,14 @@
 
   background-color: aliceblue;
   border: 2px solid rgb(167, 167, 167);
+  border-radius: 5px;
+
+  padding: 3px;
+}
+
+.drum-pad {
+  min-width: 40px;
+  min-height: 35px;
 }
 
 #control-panel {
