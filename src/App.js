@@ -184,9 +184,11 @@ class App extends Component {
   changeBank() {
     if (this.state.bank === 'One') {
       this.setState({bank: 'Two'})
+      return;
     }
     if (this.state.bank === 'Two') {
       this.setState({bank: 'One'})
+      return;
     }
     else {
       console.error("Invalid bank state!")
