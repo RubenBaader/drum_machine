@@ -5,11 +5,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      label: '',
       bank: 'One',
       volume: 30
     };
     this.handleVolumeChange = this.handleVolumeChange.bind(this);
     this.playAudio = this.playAudio.bind(this);
+    this.changeBank = this.changeBank.bind(this);
 
     this.audiosBankOne = {
       Q: {
@@ -58,7 +60,6 @@ class App extends Component {
         url: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
       }
     };
-
     this.audiosBankTwo = {
       Q: {
         keyCode: 81,
@@ -130,10 +131,35 @@ class App extends Component {
         X: new Audio(this.audiosBankTwo['X']['url']),
         C: new Audio(this.audiosBankTwo['C']['url']) 
       }
+    };
+
+    this.audioDescriber = {
+      bankOne: {
+        Q: this.audiosBankOne['Q']['id'],
+        W: this.audiosBankOne['W']['id'],
+        E: this.audiosBankOne['E']['id'],
+        A: this.audiosBankOne['A']['id'],
+        S: this.audiosBankOne['S']['id'],
+        D: this.audiosBankOne['D']['id'],
+        Z: this.audiosBankOne['Z']['id'],
+        X: this.audiosBankOne['X']['id'],
+        C: this.audiosBankOne['C']['id']       
+      },
+      bankTwo: {
+        Q: this.audiosBankTwo['Q']['id'],
+        W: this.audiosBankTwo['W']['id'],
+        E: this.audiosBankTwo['E']['id'],
+        A: this.audiosBankTwo['A']['id'],
+        S: this.audiosBankTwo['S']['id'],
+        D: this.audiosBankTwo['D']['id'],
+        Z: this.audiosBankTwo['Z']['id'],
+        X: this.audiosBankTwo['X']['id'],
+        C: this.audiosBankTwo['C']['id'] 
+      }
     }
   }
 
-  
+// constructor end
 
   handleVolumeChange(event) {
     this.setState({volume: event.target.value})
@@ -142,15 +168,29 @@ class App extends Component {
     if(this.state.bank === 'One') {
       this.audioPlayer['bankOne'][event.target.id].volume = this.state.volume/100.0
       this.audioPlayer['bankOne'][event.target.id].play();
+      this.setState({label: this.audioDescriber['bankOne'][event.target.id]})
       return;
     }
     if(this.state.bank === 'Two') {
       this.audioPlayer['bankTwo'][event.target.id].volume = this.state.volume/100.0
       this.audioPlayer['bankTwo'][event.target.id].play();
+      this.setState({label: this.audioDescriber['bankTwo'][event.target.id]})
       return;
     }
     else {
       console.error("ERROR in audio player")
+    }
+  }
+  changeBank() {
+    if (this.state.bank === 'One') {
+      this.setState({bank: 'Two'})
+    }
+    if (this.state.bank === 'Two') {
+      this.setState({bank: 'One'})
+    }
+    else {
+      console.error("Invalid bank state!")
+      return;
     }
   }
 
@@ -171,12 +211,12 @@ class App extends Component {
           </div>
           <div id='control-panel'>
             <button className='controls-button' id='power-button'>Power</button>
-            <input type='text' id='display'></input>
+            <input type='text' id='display'  value={this.state.label} readOnly></input>
             <div className='slider'>
-              <input type='range' id='volume' name='volume' min='0' max='100' value={this.state.volume} onChange={ this.handleVolumeChange } ></input>
+              <input type='range' id='volume' name='volume' min='0' max='100' value={this.state.volume} onChange={this.handleVolumeChange} ></input>
               <label htmlFor='volume'>{this.state.volume}</label>
             </div>
-            <button className='controls-button' id='bank'>Bank</button>
+            <button className='controls-button' id='bank' onClick={this.changeBank} >Bank</button>
           </div>
         </div>
       </div>
