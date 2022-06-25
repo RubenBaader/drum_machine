@@ -9,6 +9,7 @@ class App extends Component {
       bank: 'One',
       volume: 30
     };
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleVolumeChange = this.handleVolumeChange.bind(this);
     this.playAudio = this.playAudio.bind(this);
     this.changeBank = this.changeBank.bind(this);
@@ -107,7 +108,6 @@ class App extends Component {
         url: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
       }
     };
-
     this.audioPlayer = {
       bankOne: {
         Q: new Audio(this.audiosBankOne['Q']['url']),
@@ -132,7 +132,6 @@ class App extends Component {
         C: new Audio(this.audiosBankTwo['C']['url']) 
       }
     };
-
     this.audioDescriber = {
       bankOne: {
         Q: this.audiosBankOne['Q']['id'],
@@ -159,7 +158,18 @@ class App extends Component {
     }
   }
 
-// constructor end
+// constructor end, start methods
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyPress)
+  };
+
+  handleKeyPress(event) {
+    if (document.getElementById(event['key'].toUpperCase()) === null) {
+      return
+    } else {
+      document.getElementById(event['key'].toUpperCase()).click()
+    };
+  }
 
   handleVolumeChange(event) {
     this.setState({volume: event.target.value})
@@ -196,6 +206,8 @@ class App extends Component {
     }
   }
 
+
+// end methods, start JSX
   render() {
     return (
       <div className="App">
