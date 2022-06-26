@@ -5,7 +5,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      label: '',
+      powerOn: true,
+      label: 'Drum Machine',
       bank: 'One',
       volume: 30
     };
@@ -13,6 +14,7 @@ class App extends Component {
     this.handleVolumeChange = this.handleVolumeChange.bind(this);
     this.playAudio = this.playAudio.bind(this);
     this.changeBank = this.changeBank.bind(this);
+    this.togglePower = this.togglePower.bind(this);
 
     this.audiosBankOne = {
       Q: {
@@ -162,35 +164,42 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyPress)
   };
-
   handleKeyPress(event) {
     if (document.getElementById(event['key'].toUpperCase()) === null) {
       return
     } else {
       document.getElementById(event['key'].toUpperCase()).click()
     };
-  }
+  };
+
+  togglePower() {
+    this.setState({powerOn: !this.state.powerOn});
+  };
 
   handleVolumeChange(event) {
     this.setState({volume: event.target.value})
-  }
+  };
   playAudio(event) {
-    if(this.state.bank === 'One') {
-      this.audioPlayer['bankOne'][event.target.id].volume = this.state.volume/100.0
-      this.audioPlayer['bankOne'][event.target.id].play();
-      this.setState({label: this.audioDescriber['bankOne'][event.target.id]})
+    if (this.state.powerOn) {
+      if(this.state.bank === 'One') {
+        this.audioPlayer['bankOne'][event.target.id].volume = this.state.volume/100.0
+        this.audioPlayer['bankOne'][event.target.id].play();
+        this.setState({label: this.audioDescriber['bankOne'][event.target.id]})
+        return;
+      }
+      if(this.state.bank === 'Two') {
+        this.audioPlayer['bankTwo'][event.target.id].volume = this.state.volume/100.0
+        this.audioPlayer['bankTwo'][event.target.id].play();
+        this.setState({label: this.audioDescriber['bankTwo'][event.target.id]})
+        return;
+      }
+      else {
+        console.error("ERROR in audio player")
+      }
+    } else {
       return;
     }
-    if(this.state.bank === 'Two') {
-      this.audioPlayer['bankTwo'][event.target.id].volume = this.state.volume/100.0
-      this.audioPlayer['bankTwo'][event.target.id].play();
-      this.setState({label: this.audioDescriber['bankTwo'][event.target.id]})
-      return;
-    }
-    else {
-      console.error("ERROR in audio player")
-    }
-  }
+  };
   changeBank() {
     if (this.state.bank === 'One') {
       this.setState({bank: 'Two'})
@@ -204,7 +213,7 @@ class App extends Component {
       console.error("Invalid bank state!")
       return;
     }
-  }
+  };
 
 
 // end methods, start JSX
@@ -213,28 +222,28 @@ class App extends Component {
       <div className="App">
         <div id='drum-machine'>
           <div id='pad-container'>
-            <button className='drum-pad' id='Q' onClick={this.playAudio}>Q</button>
-            <button className='drum-pad' id='W' onClick={this.playAudio}>W</button>
-            <button className='drum-pad' id='E' onClick={this.playAudio}>E</button>
-            <button className='drum-pad' id='A' onClick={this.playAudio}>A</button>
-            <button className='drum-pad' id='S' onClick={this.playAudio}>S</button>
-            <button className='drum-pad' id='D' onClick={this.playAudio}>D</button>
-            <button className='drum-pad' id='Z' onClick={this.playAudio}>Z</button>
-            <button className='drum-pad' id='X' onClick={this.playAudio}>X</button>
-            <button className='drum-pad' id='C' onClick={this.playAudio}>C</button>
+            <button className='drum-pad' id='Q' onClick={this.playAudio}> Q</button>
+            <button className='drum-pad' id='W' onClick={this.playAudio}> W</button>
+            <button className='drum-pad' id='E' onClick={this.playAudio}> E</button>
+            <button className='drum-pad' id='A' onClick={this.playAudio}> A</button>
+            <button className='drum-pad' id='S' onClick={this.playAudio}> S</button>
+            <button className='drum-pad' id='D' onClick={this.playAudio}> D</button>
+            <button className='drum-pad' id='Z' onClick={this.playAudio}> Z</button>
+            <button className='drum-pad' id='X' onClick={this.playAudio}> X</button>
+            <button className='drum-pad' id='C' onClick={this.playAudio}> C</button>
           </div>
           <div id='control-panel'>
-            <button className='controls-button' id='power-button'>Power</button>
+            <button className='controls-button' id='power-button' onClick={this.togglePower} >Power</button>
             <input type='text' id='display'  value={this.state.label} readOnly></input>
+            <button className='controls-button' id='bank' onClick={this.changeBank} >Bank</button>
             <div className='slider'>
               <input type='range' id='volume' name='volume' min='0' max='100' value={this.state.volume} onChange={this.handleVolumeChange} ></input>
-              <label htmlFor='volume'>{this.state.volume}</label>
+              <label htmlFor='volume' id='volumeLabel'>{this.state.volume}</label>
             </div>
-            <button className='controls-button' id='bank' onClick={this.changeBank} >Bank</button>
           </div>
         </div>
       </div>
-    );
+    ); 
   }
 }
 

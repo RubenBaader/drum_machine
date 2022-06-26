@@ -31,7 +31,6 @@
   background-color: aliceblue;
   border: 2px solid rgb(167, 167, 167);
   border-radius: 5px;
-
   padding: 3px;
 }
 
@@ -43,4 +42,37 @@
 #control-panel {
   display: flex;
   flex-direction: column;
+  gap: 5px;
+}
+
+.controls-button {
+  width: 50%;
+  align-self: flex-end;
+}
+
+#display {
+  text-align: center;
+}
+
+.slider {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+#volume {
+  display: inline-block;
+  border: 2px solid red;
+  padding-top: 0px;
+  width: 2fr;
+}
+
+#volumeLabel {
+  align-self: flex-end;
+  line-height: 100%;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  width: 40px;
+  color: #484c53;
+  font-size: smaller;
 }

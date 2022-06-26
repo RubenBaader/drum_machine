@@ -18,5 +18,5 @@ The project is a drum machine - it consists of a box with 9 buttons, each of whi
 8. Within #drum-machine I can see an element with the corresponding id control-panel ✔
 9. On the control panel I can see a button with the corresponding id power-button ✔
 10. On the control panel I can see a button with the corresponding id bank ✔
-11. Pressing the power button toggles the drum machine on and off, enabling or disabling the audio being played
+11. Pressing the power button toggles the drum machine on and off, enabling or disabling the audio being played ✔
 12. Pressing the bank button toggles between which of two audio clips each drum pad plays on activation ✔
